@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explore_filter">Filter</string>
+
+    <string name="explore_filter_featured_only">Featured only</string>
+
+    <string name="explore_filter_free_only">Free only</string>
+
+    <string name="explore_filter_error_locations">Error fetching locations</string>
+
+    <string name="explore_more_dates">more dates</string>
+
+    <string name="explore_no_results">No results found</string>
+
+    <string name="app_attribution">Powered by Eventfinda</string>
+</resources>

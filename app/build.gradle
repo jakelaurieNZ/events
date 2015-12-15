@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+
+    signingConfigs {
+        events {
+            storeFile file("../keystore/android.jks")
+            storePassword "android"
+            keyAlias "android"
+            keyPassword "android"
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 2
+        versionName "1.0"
+
+        signingConfig signingConfigs.events
+
+        buildConfigField "long", "REALM_SCHEMA_VERSION", 1 + 'L'
+        buildConfigField "String", "EVENTFINDER_API_USERNAME", "\"${eventfinder_api_username}\""
+        buildConfigField "String", "EVENTFINDER_API_PASSWORD", "\"${eventfinder_api_password}\""
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    def appCompatVersion = '23.1.1'
+    def daggerVersion = '2.0.1'
+    def retroFitVersion = '2.0.0-beta2'
+
+    compile "com.android.support:appcompat-v7:${appCompatVersion}"
+    compile "com.android.support:recyclerview-v7:${appCompatVersion}"
+
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    provided "org.glassfish:javax.annotation:10.0-b28"
+
+    compile "com.jakewharton:butterknife:7.0.1"
+    compile 'com.jakewharton.timber:timber:4.1.0'
+
+    compile "com.squareup.retrofit:retrofit:${retroFitVersion}"
+    compile "com.squareup.retrofit:converter-gson:${retroFitVersion}"
+    compile "com.squareup.retrofit:adapter-rxjava:${retroFitVersion}"
+    compile "com.squareup.picasso:picasso:2.5.2"
+
+    compile "io.reactivex:rxandroid:1.0.1"
+    compile 'io.reactivex:rxjava:1.0.15'
+
+    compile "io.realm:realm-android:0.82.2"
+
+    compile "joda-time:joda-time:2.8.2"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:1.10.19"
+
+    def testingSupportLibVersion = '0.4.1'
+    androidTestCompile "com.android.support.test:runner:${testingSupportLibVersion}"
+    androidTestCompile "com.android.support.test:rules:${testingSupportLibVersion}"
+    androidTestCompile "com.android.support:support-annotations:${appCompatVersion}"
+    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
+}
