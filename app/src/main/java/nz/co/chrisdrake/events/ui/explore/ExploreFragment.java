@@ -2,7 +2,9 @@ package nz.co.chrisdrake.events.ui.explore;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
@@ -80,6 +82,15 @@ public class ExploreFragment extends BaseFragment
     private int selectedTimeSpanPosition;
 
     private @ViewState int viewState;
+
+    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // The DrawerLayout will be responsible for drawing the status bar colour.
+            getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {

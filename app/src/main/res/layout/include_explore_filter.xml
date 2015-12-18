@@ -6,7 +6,7 @@
     android:layout_width="200dp"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:padding="16dp"
+    android:fitsSystemWindows="true"
     android:background="#37474F"
     android:clickable="true"
     tools:ignore="Overdraw">
@@ -14,7 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <Spinner
             android:id="@+id/filter_location_spinner"
@@ -59,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:padding="16dp"
         android:gravity="center"
         android:text="@string/app_attribution"
         style="@style/ExploreFilter"/>
