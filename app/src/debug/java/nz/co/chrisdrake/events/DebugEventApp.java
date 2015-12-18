@@ -9,7 +9,7 @@ public class DebugEventApp extends EventApp {
     }
 
     private void createComponent(boolean mockMode) {
-        this.appComponent = DaggerEventAppComponent.builder()
+        this.appComponent = DaggerDebugEventAppComponent.builder()
             .eventAppModule(new EventAppModule(this))
             .debugDataModule(new DebugDataModule(mockMode))
             .build();
