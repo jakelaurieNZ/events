@@ -51,6 +51,7 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:${appCompatVersion}"
     compile "com.android.support:recyclerview-v7:${appCompatVersion}"
+    compile "com.android.support:customtabs:${appCompatVersion}"
 
     apt "com.google.dagger:dagger-compiler:${daggerVersion}"
     compile "com.google.dagger:dagger:${daggerVersion}"

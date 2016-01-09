@@ -1,9 +1,8 @@
 package nz.co.chrisdrake.events.ui.explore;
 
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,6 +41,12 @@ import org.joda.time.Interval;
 public class ExploreFragment extends BaseFragment
     implements ExploreView, ExploreEventAdapter.Callbacks, ExploreFilterView.Callbacks {
 
+    public interface ExploreEventListener {
+        void onEventClicked(Event event);
+
+        void onAttributionClicked();
+    }
+
     private static final String INSTANCE_STATE_PARAM_VIEW_STATE =
         "nz.co.chrisdrake.events.STATE_PARAM_VIEW_STATE";
     private static final String INSTANCE_STATE_PARAM_TIME_SPAN =
@@ -73,6 +78,8 @@ public class ExploreFragment extends BaseFragment
 
     private final ExploreFilterImpl filter = new ExploreFilterImpl();
 
+    private ExploreEventListener exploreEventListener;
+
     private LinearLayoutManager layoutManager;
 
     private ExploreEventAdapter eventAdapter;
@@ -82,6 +89,11 @@ public class ExploreFragment extends BaseFragment
     private int selectedTimeSpanPosition;
 
     private @ViewState int viewState;
+
+    @Override public void onAttach(Context context) {
+        super.onAttach(context);
+        exploreEventListener = (ExploreEventListener) context;
+    }
 
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -306,16 +318,11 @@ public class ExploreFragment extends BaseFragment
     }
 
     @OnClick(R.id.attribution_text) protected void onClickAttribution() {
-        openUrl("http://www.eventfinda.co.nz");
+        exploreEventListener.onAttributionClicked();
     }
 
     @Override public void onEventClick(Event event) {
-        openUrl(event.url);
-    }
-
-    private void openUrl(String url) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        startActivity(browserIntent);
+        exploreEventListener.onEventClicked(event);
     }
 
     private final class ExploreFilterImpl implements ExploreFilter {
