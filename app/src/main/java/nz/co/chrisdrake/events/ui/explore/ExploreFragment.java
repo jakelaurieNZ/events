@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -178,7 +179,9 @@ public class ExploreFragment extends BaseFragment
             }
         });
 
-        swipeRefreshLayout.setColorSchemeColors(R.color.theme_primary, R.color.theme_accent_dark);
+        swipeRefreshLayout.setColorSchemeColors(
+            ContextCompat.getColor(getContext(), R.color.theme_primary),
+            ContextCompat.getColor(getContext(), R.color.theme_accent));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 presenter.attemptRefresh();
